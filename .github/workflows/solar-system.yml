@@ -74,4 +74,13 @@ jobs:
             context: .
             push: true
             tags: 'ghcr.io/${{ github.repository_owner }}/solar-system:${{ github.sha }}'
+    deploy:
+      runs-on: ubuntu-latest
+      environment:
+        name: staging
+        url: ${{ steps.deploy.outputs.url }}
+      steps:
+        - name: Deploy to staging
+          id: deploy
+          run: ./deploy-script.sh
 
